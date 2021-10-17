@@ -5,17 +5,29 @@ Summary:
     Config for releasing to pypi
 """
 
+
+# Default Py Packagaes
+import subprocess
 import setuptools
-import os
 
-print(os.getcwd())
 
+
+
+# Gets the tag version numbers
+git_tag_version = (
+    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE, check=True)
+    .stdout.decode("utf-8")
+    .strip()
+)
+
+# Read the README file to get a long description for the package
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+# Mimic a setup cgf
 setuptools.setup(
     name="helpu",
-    version="0.0.2",
+    version=git_tag_version,
     author="Noctsol",
     author_email="author@example.com",
     description="Package with useful methods. Makes life easier",
