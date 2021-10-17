@@ -1,0 +1,5 @@
+###### Requirements without Version Specifiers ######
+uuid
+os
+datetime
+csv

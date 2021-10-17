@@ -1,4 +1,11 @@
-import helpme
+import helpu
+
+import setuptools
+import os
+
+print(setuptools.find_packages(where="."))
 
 
-print(helpme.datetime_timestamp())
+print(os.getcwd())
+
+print(helpu.timestamp())

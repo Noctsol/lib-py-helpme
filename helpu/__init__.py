@@ -4,7 +4,8 @@ Contributors: N/A
 Date Created: 20210824
 
 Summary:
-    This is tradition from all the people I've ever had the privilege of working with. Write lazy code. Why think when you can use helper?
+    This is tradition from all the people I've ever had the privilege of working with.
+    Write lazy code. Why think when you can use helpu?
 
 """
 
@@ -12,15 +13,19 @@ Summary:
 
 # Default Python Packages
 from uuid import uuid4
+from datetime import datetime
 
-import os                           # Deals with operating system functionality
+from os import makedirs             # Used to make a directory
+from os import path                 # Deals with system pathing
+
+
 import csv                          # For reading/writing csv files
-import datetime                     # For dealing with datetime objs
 
 
 
 
-class HelpMe():
+
+class HelpU():
     '''
     Helper class containing functions that are used a lot accross multiple projects.
     The intention here to to make some tedious things brain dead.
@@ -99,7 +104,6 @@ class HelpMe():
         return table
 
     # Generate a string datetime to use to write files
-    @staticmethod
     def datetime_timestamp(self, formatting="%Y%m%d_%H%M%S" ):
         ''' Returns a string indicate a current datetime(Ex. 20150106_012259)
 
@@ -109,7 +113,7 @@ class HelpMe():
             Sets the format of datetime stamp that is returned.
 
         '''
-        now = datetime.datetime.now()
+        now = datetime.now()
         return now.strftime(formatting)
 
     # Generates a directory only when it doesn't exist
@@ -123,8 +127,8 @@ class HelpMe():
 
         '''
         # Only make directory if it doesn't exist
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
+        if not path.exists(folder_path):
+            makedirs(folder_path)
 
         return True
 
@@ -152,7 +156,7 @@ def timestamp(formatting="%Y%m%d_%H%M%S"):
     Returns:
         string: Returns a string indicate a current datetime(Ex. 20150106_012259)
     """
-    now = datetime.datetime.now()
+    now = datetime.now()
     return now.strftime(formatting)
 
 
@@ -165,4 +169,3 @@ def mkid():
     """
 
     return str(uuid4())
-
