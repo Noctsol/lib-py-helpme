@@ -24,10 +24,10 @@ git_tag_version = (
 )
 print(f"--> Build #:{git_tag_version}")
 
-# Checks that the tag version matches the format of 0[0][0].0[0][0].0[0][0]
-pattern = re.compile("^\\d{1,3}.\\d{1,3}.\\d{1,3}$")
-is_match = bool(pattern.match(git_tag_version))
-assert is_match is True
+# # Checks that the tag version matches the format of 0[0][0].0[0][0].0[0][0]
+# pattern = re.compile("^\\d{1,3}.\\d{1,3}.\\d{1,3}$")
+# is_match = bool(pattern.match(git_tag_version))
+# assert is_match is True
 
 # Reads the requirement.txt file in the root dir
 folder_path = os.path.dirname(os.path.realpath(__file__))
