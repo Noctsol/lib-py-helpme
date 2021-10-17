@@ -1,4 +1,4 @@
-# lib-py-helpme
+# lib-py-helpu
 Library on PYPI that contains some very lazy mode methods.
 
 Use case example:
