@@ -16,8 +16,9 @@ import setuptools
 
 
 # Gets the tag version numbers - for GitHub Workflows - Does not work locally
+# Check is set to false because this will return nonzero status even though it works
 git_tag_version = (
-    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE, check=True)
+    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE, check=False)
     .stdout.decode("utf-8")
     .strip()
 )
