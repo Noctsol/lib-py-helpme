@@ -23,8 +23,8 @@ git_tag_version = (
     .strip()
 )
 
-# Checks that the tag version matches the format of 0[0][0].0[0][0].0[0][0]
-pattern = re.compile("^\\d{1,3}.\\d{1,3}.\\d{1,3}$")
+# Checks that the tag version matches the format of {pkg_name}-0[0][0].0[0][0].0[0][0]
+pattern = re.compile("^helpu-\\d{1,3}.\\d{1,3}.\\d{1,3}$")
 is_match = bool(pattern.match(git_tag_version))
 assert is_match is True
 
@@ -35,7 +35,6 @@ with open(file_path) as f:
     text = f.read()
 
 packages_list = text.split("\n")
-
 
 # Read the README file to get a long description for the package
 with open("README.md", "r", encoding="utf-8") as fh:
