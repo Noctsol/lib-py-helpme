@@ -62,5 +62,10 @@ setuptools.setup(
     package_dir={"": "."},
     packages=["helpu"],
     python_requires=">=3.0",
-    install_requires=packages_list
+    install_requires=[
+        "uuid",
+        "os",
+        "datetime",
+        "csv"
+        ]
 )
