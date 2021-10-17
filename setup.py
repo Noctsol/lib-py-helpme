@@ -22,7 +22,7 @@ git_tag_version = (
     .stdout.decode("utf-8")
     .strip()
 )
-print(git_tag_version)
+print(f"--> Build #:{git_tag_version}")
 
 # Checks that the tag version matches the format of 0[0][0].0[0][0].0[0][0]
 pattern = re.compile("^\\d{1,3}.\\d{1,3}.\\d{1,3}$")
