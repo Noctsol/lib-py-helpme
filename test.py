@@ -2,15 +2,13 @@
 
 import setuptools
 import re
-pattern  = "^helpu-\\d{1,3}.\\d{1,3}.\\d{1,3}$"
-
-test = "helpu-1.3.457"
-
-pattern = re.compile(pattern)
-is_match = bool(pattern.match(test))
-
-assert is_match is True
+import os
 
 
-print(setuptools.find_packages(where="."))
+folder_path = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(folder_path, "requirements.txt")
+with open(file_path) as f:
+    text = f.read()
 
+packages_list = text.split("\n")
+print(packages_list)
