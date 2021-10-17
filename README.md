@@ -1,8 +1,7 @@
 # lib-py-helpu
 Phonetic - *| help juː |*
 
-Library on PYPI that contains some very lazy mode methods.
-Because who actually wants to do any work?
+Library on PYPI that contains some very lazy methods.
 
 Use case example:
 ```
