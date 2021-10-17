@@ -24,8 +24,8 @@ git_tag_version = (
 )
 print(git_tag_version)
 
-# Checks that the tag version matches the format of {pkg_name}-0[0][0].0[0][0].0[0][0]
-pattern = re.compile("^helpu-\\d{1,3}.\\d{1,3}.\\d{1,3}$")
+# Checks that the tag version matches the format of 0[0][0].0[0][0].0[0][0]
+pattern = re.compile("^\\d{1,3}.\\d{1,3}.\\d{1,3}$")
 is_match = bool(pattern.match(git_tag_version))
 assert is_match is True
 
