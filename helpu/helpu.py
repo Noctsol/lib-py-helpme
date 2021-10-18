@@ -13,10 +13,11 @@ Summary:
 # Default Python Packages
 from uuid import uuid4              # Universally unique identifier
 from datetime import datetime       # Datetime lib
-
 import os                           # Provides ways of using OS dependent functionality
-
+import pickle                       # For storing python obj in files
+import json                         # For reading/writing JSON
 import csv                          # For reading/writing csv files
+
 
 
 ####################################### PATH FUNC #######################################
@@ -68,7 +69,7 @@ def delete(file_path, not_exist_ok=True):
         not_exist_ok (bool, optional): Decides how to handle non-existent file. Defaults to True.
 
     Returns:
-        bool: Just here so that something is returned .
+        bool: Just here so that something is returned.
     """
     # Must be a valid path string
     assert os.path.isfile(file_path) is True
@@ -95,11 +96,19 @@ def file_creation_date(file_path):
     assert os.path.isfile(file_path) is True
     return os.path.getctime(file_path)
 
+def file_creation_age(file_path):
+    pass
+
+def cut_paste():
+    pass
+
+def copy_paste():
+    pass
 
 ####################################### CONVERSION FUNC #######################################
 
 # Converts a list-of-lists to a list-of-dicts
-def listdict(list_list):
+def to_listdict(list_list):
     """Converts a list-of-lists to a list-of-dicts.
 
     Ex: [["a","b"],[1, 2],[3, 4]] ---> [{'a': 1, 'b': 2}, {'a': 3, 'b': 4}]
@@ -115,7 +124,7 @@ def listdict(list_list):
     return [dict(zip(list_list[0], i)) for i in list_list[1:]]
 
 # Converts a list-of-dicts to lists-of-lists
-def listlist(list_dict):
+def to_listlist(list_dict):
     """Converts a list-of-dicts to a list-of-lists.
 
     Ex: [{'a': 1, 'b': 2}, {'a': 3, 'b': 4}] ---> [["a","b"],[1, 2],[3, 4]]
@@ -145,6 +154,17 @@ def listlist(list_dict):
 
     return table
 
+def to_json(dict_or_list):
+    pass
+
+def to_sql_time(py_datetime):
+    pass
+
+def chunk():
+    pass
+
+def group_by():
+    pass
 
 ####################################### STAMP FUNC #######################################
 
@@ -203,7 +223,7 @@ def read_csv(file_path, delimiter=",", quotechar='"'):
         return lsts
 
 # Outputs a 2d list to a csv file
-def write_to_csv(file_path, data, delimiter=","):
+def write_csv(file_path, data, delimiter=","):
     """Writes a nested list to a csv file
 
     Args:
@@ -221,3 +241,70 @@ def write_to_csv(file_path, data, delimiter=","):
         writer.writerows(data)
 
         return True
+
+# Read a pickle file
+def read_pickle(file_path):
+    """Read a pickle file
+
+    Args:
+        file_path (string): Absolute path of the file. Example:"C:/Users/Noctsol/Documents/somefile.pickle"
+
+    Returns:
+        ???: Depends on what you stored (int, lsit, dict, etc.)
+    """
+    with open(file_path, 'rb') as file:
+        return pickle.load(file)
+
+# Write anything to a pickle file
+def write_pickle(file_path, py_content):
+    """Write anything to a pickle file
+
+    Args:
+        file_path (string): Absolute path of the file. Example:"C:/Users/Noctsol/Documents/somefile.pickle"
+        py_content (any): Any Python object
+
+    Returns:
+        bool: Just here so that something is returned.
+    """
+    with open(file_path, 'a') as file:
+        pickle.dump(py_content, file)
+
+    return True
+
+# Read a json file
+def read_json(file_path):
+    """Read a json file
+
+    Args:
+        file_path (string): Absolute path of the file. Example:"C:/Users/Noctsol/Documents/somefile.json"
+
+    Returns:
+        list or dict: Will represent a JSON using python list/dict
+    """
+    with open(file_path) as file:
+        return json.load(file)
+
+# Write a list or dict to a JSON file
+def write_json(file_path, py_content):
+    """Write a list or dict to a JSON file
+
+    Args:
+        file_path (string): Absolute path of the file. Example:"C:/Users/Noctsol/Documents/somefile.json"
+        py_content ([type]): [description]
+
+    Returns:
+        bool: Just here so that something is returned.
+    """
+    with open(file_path, 'w') as file:
+        json.dump(py_content, file)
+
+    return True
+
+def read_text():
+    pass
+
+def write_text():
+    pass
+
+def append_text():
+    pass
