@@ -17,6 +17,7 @@ import os                           # Provides ways of using OS dependent functi
 import pickle                       # For storing python obj in files
 import json                         # For reading/writing JSON
 import csv                          # For reading/writing csv files
+import shutil                       # Moving around files
 
 
 
@@ -94,12 +95,32 @@ def file_creation_date(file_path):
     """
     # Must be a valid path string
     assert os.path.isfile(file_path) is True
-    return os.path.getctime(file_path)
 
+    unix_timestamp = os.path.getctime(file_path)
+
+    return datetime.fromtimestamp(unix_timestamp)
+
+# Gets the days passedsince  a file was created - only works on Windows OS
 def file_creation_age(file_path):
-    pass
+    """# Gets the days passedsince  a file was created - only works on Windows OS
 
-def cut_paste():
+    Args:
+        file_path (string): Absolute path of the file
+
+    Returns:
+        float: float representing how many days have passed since the file was created
+    """
+    current_time = datetime.now()
+    # Seconds passed since the file was created
+    seconds_passed = (current_time - file_creation_date(file_path)).total_seconds()
+
+    # Converting to minutes
+    days = round(seconds_passed/60/60/24,5)
+
+    return days
+
+def cut_paste(src_path, dst_path):
+    # Check if both paths are directories or files
     pass
 
 def copy_paste():
