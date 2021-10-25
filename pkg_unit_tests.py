@@ -14,27 +14,16 @@ Summary:
 # Local import
 from src import helpu as hlp
 
+# Pre-installed
 import unittest
 import os
 import platform
 import datetime
 
+
+
 class TestHelpu(unittest.TestCase):
     """ Unit tests """
-
-    # def test_upper(self):
-    #     self.assertEqual('foo'.upper(), 'FOO')
-
-    # def test_isupper(self):
-    #     self.assertTrue('FOO'.isupper())
-    #     self.assertTrue('Foo'.isupper())
-
-    # def test_split(self):
-    #     s = 'hello world'
-    #     self.assertEqual(s.split(), ['hello', 'world'])
-    #     # check that s.split fails when the separator is not a string
-    #     with self.assertRaises(TypeError):
-    #         s.split(2)
 
     def test_mkdir(self):
         """Make a directory and check if it exists and delete it"""
