@@ -1,10 +1,10 @@
 """
-Owner: Kevin B
+Owner: Noctsol
 Contributors: N/A
-Date Created: 20210824
+Date Created: 2021-10-24
 
 Summary:
-    Class containing convenience methods. I'm just here to help you.
+    Class containing convenience methods. Really just here for me to use.
 
 """
 
@@ -410,4 +410,4 @@ def append_text(file_path, text):
 #### Exception ####
 class IllegalArgumentError(ValueError):
     """General Exception used to passing bad arguments to functions"""
-    pass
+
