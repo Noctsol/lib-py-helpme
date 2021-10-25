@@ -4,7 +4,7 @@ Contributors: N/A
 Date Created: 20210824
 
 Summary:
-    Class containing convenience methods.
+    Class containing convenience methods. I'm just here to help you.
 
 """
 
@@ -34,52 +34,41 @@ def mkdir(folder_path, exist_ok=True):
     Returns:
         bool: for confirmation
     """
-    # Must be a valid path string
-    assert os.path.isdir(folder_path) is True
 
-    # Genewrate dir
+    # Generate dir
     os.makedirs(folder_path, exist_ok=exist_ok)
 
     return True
 
-# Deletes a directory
-def deletedir(dir_path, not_exist_ok=True):
-    """Deletes a directory
+# Deletes a file OR dir
+def delete(some_path, not_exist_ok=True):
+    """Delete a given file path OR a folder path
 
     Args:
-        dir_path (string): Specifies what directory to delete
-        not_exist_ok (bool, optional): Decides how to handle non-existent directory. Defaults to True.
-
-    Returns:
-        bool: Just here so that something is returned.
-    """
-
-    # Must be a valid path string
-    assert os.path.isdir(dir_path) is True
-
-    os.rmdir(dir_path, not_exist_ok=not_exist_ok)
-
-    return True
-
-# Deletes a file
-def delete(file_path, not_exist_ok=True):
-    """Delete a given file path
-
-    Args:
-        file_path (string): Absolute path of the file
+        some_path (string): Absolute path of the file of the file or directory
         not_exist_ok (bool, optional): Decides how to handle non-existent file. Defaults to True.
 
     Returns:
         bool: Just here so that something is returned.
     """
     # Must be a valid path string
-    assert os.path.isfile(file_path) is True
+    isadir = os.path.isdir(some_path)
+    isafile = os.path.isfile(some_path)
 
     # Do nothing if file doesn't exist
-    if not os.path.exists(file_path) and not_exist_ok is True:
+    if not os.path.exists(some_path) and not_exist_ok is True:
         return False
 
-    os.remove(file_path)
+    if isafile:
+        os.remove(some_path)
+    elif isadir:
+        # Rmdir only work on empty directories
+        if len(os.listdir(some_path)) > 0:
+            shutil.rmtree(some_path)
+        else:
+            os.rmdir(some_path)
+    else:
+        raise IllegalArgumentError(f"{some_path} is neither a valid file or directory")
 
     return True
 
@@ -100,7 +89,7 @@ def file_creation_date(file_path):
 
     return datetime.fromtimestamp(unix_timestamp)
 
-# Gets the days passedsince  a file was created - only works on Windows OS
+# Gets the days passed since a file was created - only works on Windows OS
 def file_creation_age(file_path):
     """# Gets the days passedsince  a file was created - only works on Windows OS
 
@@ -119,12 +108,32 @@ def file_creation_age(file_path):
 
     return days
 
+# Cut paste functionality just copied from shutil
 def cut_paste(src_path, dst_path):
-    # Check if both paths are directories or files
-    pass
+    """Cut paste functionality just copied from shutil. Works on files or dirs.
 
-def copy_paste():
-    pass
+    Args:
+        src_path (string): Source path to be cut
+        dst_path (string): Destination path to paste to
+    """
+    shutil.move(src_path, dst_path)
+    return True
+
+# Copy2 functionality just copied from shutil
+def copy_paste(src_path, dst_path):
+    """Copy2 functionality from shutil. Works on files or dirs.
+
+    Args:
+        src_path (string): Source path to be copied
+        dst_path (string): Destination path to paste to
+
+    Returns:
+        bool: Just returns True
+    """
+    shutil.copy2(src_path, dst_path)
+
+    return True
+
 
 ####################################### CONVERSION FUNC #######################################
 
@@ -175,17 +184,31 @@ def to_listlist(list_dict):
 
     return table
 
-def to_json(dict_or_list):
-    pass
+# https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks
+def chunk(iterable_obj, part_size):
+    """Split an iterable into a list of n sized chunks. I got the original idea from stackoverflow at
+    https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks
 
-def to_sql_time(py_datetime):
-    pass
+    Python sure makes this pretty easy lol.
 
-def chunk():
-    pass
+    Args:
+        iterable_obj (Iterable): Any iterable(list, tuple, etc)
+        part_size (int): How large each divided chunk will be
 
-def group_by():
-    pass
+    Returns:
+        <list<list>>: Nested list with chunked items from the original iterable
+    """
+    # Apparently,this was faster than all other methods when I tested
+    # Container for new items
+    temp_lst = []
+
+    # Cycle through list of items with part_size step
+    for i in range(0, len(iterable_obj), part_size):
+        # append part_size list to temp list
+        temp_lst.append(iterable_obj[i:i + part_size])
+
+    return temp_lst
+
 
 ####################################### STAMP FUNC #######################################
 
@@ -321,11 +344,70 @@ def write_json(file_path, py_content):
 
     return True
 
-def read_text():
-    pass
+# Reads text file
+def read_text(file_path):
+    """Read text file
+    Args:
+        file_path (string): Location of the file to read
 
-def write_text():
-    pass
+    Returns:
+        list: List containing content of each line in the file
+    """
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
 
-def append_text():
+    return lines
+
+# Write text to a file - can be a string or a list of strings
+def write_text(file_path, text):
+    """Write text to a file - can be a string or a list of strings.
+    I kinda feel bad for the type ambiguity but this is Python and no overloads
+    are available.
+
+    Args:
+        file_path (string): Location that the file will be generated at
+        text (string/list<string>): A string or a list of strings
+    """
+    # Check if file ends with txt
+    if not file_path.endswith('.txt'):
+        raise IllegalArgumentError(f"{file_path} needs to have a .txt extension")
+
+    # Write file
+    with open(file_path, 'w') as file:
+        if isinstance(text, str):
+            file.write(text)
+        elif isinstance(text, list):
+            file.writelines(text)
+        else:
+            raise IllegalArgumentError("text variable is not a string or list of strings")
+
+    return True
+
+def append_text(file_path, text):
+    """Appends text to a file - can be a string or a list of strings.
+    I kinda feel bad for the type ambiguity but this is Python and no overloads
+    are available.
+
+    Args:
+        file_path (string): Location that the file will be generated at
+        text (string/list<string>): A string or a list of strings
+    """
+    # Check if file ends with txt
+    if not file_path.endswith('.txt'):
+        raise IllegalArgumentError(f"{file_path} needs to have a .txt extension")
+
+    # Write file
+    with open(file_path, 'a') as file:
+        if isinstance(text, str):
+            file.write(text)
+        elif isinstance(text, list):
+            file.writelines(text)
+        else:
+            raise IllegalArgumentError("text variable is not a string or list of strings")
+
+    return True
+
+#### Exception ####
+class IllegalArgumentError(ValueError):
+    """General Exception used to passing bad arguments to functions"""
     pass

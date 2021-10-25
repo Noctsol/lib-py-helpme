@@ -15,6 +15,23 @@ import setuptools
 
 
 
+### THINGS YOU NEED TO FILL OUT - START
+
+PROJECT_NAME = "helpu"  # What shows up on pypi and is used for pip install
+AUTHOR = "Noctsol"              # Author of this project
+EMAIL = "noctsol@pm.me"         # Your email address
+
+# Quick description of your project
+SHORT_DESCRIPT = "Class containing super convenience methods."
+
+# URL of your project - usually github repo
+PROJECT_URL = "https://github.com/Noctsol/lib-py-helpu"
+
+DATA_DIR = "src"
+DATA_FILES = ["VERSION"]
+### THINGS YOU NEED TO FILL OUT - END
+
+
 # Gets the tag version numbers - for GitHub Workflows - Does not work locally
 # Check is set to false because this will return nonzero status even though it works
 git_tag_version = (
@@ -34,8 +51,7 @@ folder_path = os.path.dirname(os.path.realpath(__file__))
 file_path = os.path.join(folder_path, "requirements.txt")
 with open(file_path) as f:
     text = f.read()
-
-# packages_list = text.split("\n")
+packages_list = text.split("\n")
 
 # Read the README file to get a long description for the package
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -43,29 +59,34 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 # Mimic a setup cgf
 setuptools.setup(
-    name="helpu",
+    name=PROJECT_NAME,
     version=git_tag_version,
-    author="Noctsol",
-    author_email="author@example.com",
-    description="Package with useful methods. Makes life easier",
+    author=AUTHOR,
+    author_email=EMAIL,
+    description=SHORT_DESCRIPT,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Noctsol/lib-py-helpu",
-    project_urls={
-        "Documentation": "https://github.com/Noctsol/lib-py-helpu/wiki",
-    },
+    url=PROJECT_URL,
+    project_urls={},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        'Development Status :: 5 - Production/Stable',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: Implementation :: PyPy',
+        'Intended Audience :: Developers',
+        'Topic :: Utilities'
     ],
-    package_dir={"": "."},
-    packages=["helpu"],
-    python_requires=">=3.0",
-    install_requires=[
-        "uuid",
-        "os",
-        "datetime",
-        "csv"
-        ]
+    package_dir={"": "src"},
+    packages=[PROJECT_NAME],
+    python_requires=">=3.5",
+    install_requires=packages_list
 )
