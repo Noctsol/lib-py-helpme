@@ -27,8 +27,6 @@ SHORT_DESCRIPT = "Class containing super convenience methods."
 # URL of your project - usually github repo
 PROJECT_URL = "https://github.com/Noctsol/lib-py-helpu"
 
-DATA_DIR = "src"
-DATA_FILES = ["VERSION"]
 ### THINGS YOU NEED TO FILL OUT - END
 
 
